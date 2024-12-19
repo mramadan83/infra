@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: spring-boot-hello-world
-          image: quay.io/your-quay-username/spring-boot-hello-world:latest
+          image: quay.io/mramadan83/spring-boot-hello-world:latest
           ports:
             - containerPort: 8080

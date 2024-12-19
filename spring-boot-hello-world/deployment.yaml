@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-hello-world
+  labels:
+    app: spring-boot-hello-world
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-boot-hello-world
+  template:
+    metadata:
+      labels:
+        app: spring-boot-hello-world
+    spec:
+      containers:
+        - name: spring-boot-hello-world
+          image: quay.io/your-quay-username/spring-boot-hello-world:latest
+          ports:
+            - containerPort: 8080

@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-npm
+  labels:
+    app: hello-world-npm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world-npm
+  template:
+    metadata:
+      labels:
+        app: hello-world-npm
+    spec:
+      containers:
+        - name: hello-world-npm
+          image: quay.io/mramadan83/hello-world-npm:latest
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-world-npm
+  labels:
+    app: hello-world-npm
+spec:
+  selector:
+    app: hello-world-npm
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: hello-world-npm
+  labels:
+    app: hello-world-npm
+spec:
+  to:
+    kind: Service
+    name: hello-world-npm
+  port:
+    targetPort: 3000
+  tls:
+    termination: edge
+  wildcardPolicy: None
+

@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-world-npm
+  name: hello-world-docker
   labels:
-    app: hello-world-npm
+    app: hello-world-docker
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello-world-npm
+      app: hello-world-docker
   template:
     metadata:
       labels:
-        app: hello-world-npm
+        app: hello-world-docker
     spec:
       containers:
-        - name: hello-world-npm
-          image: quay.io/mramadan83/hello-world-npm:latest
+        - name: hello-world-docker
+          image: quay.io/mramadan83/hello-world-docker:latest
           ports:
             - containerPort: 3000
           resources:
@@ -30,12 +30,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-world-npm
+  name: hello-world-docker
   labels:
-    app: hello-world-npm
+    app: hello-world-docker
 spec:
   selector:
-    app: hello-world-npm
+    app: hello-world-docker
   ports:
     - protocol: TCP
       port: 80
@@ -44,13 +44,13 @@ spec:
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: hello-world-npm
+  name: hello-world-docker
   labels:
-    app: hello-world-npm
+    app: hello-world-docker
 spec:
   to:
     kind: Service
-    name: hello-world-npm
+    name: hello-world-docker
   port:
     targetPort: 3000
   tls:
